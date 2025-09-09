@@ -1,5 +1,29 @@
-# Core dependencies
-# No external dependencies required for basic functionality
+# Core dependencies for enhanced features
+cryptography>=41.0.0
+fastapi>=0.104.0
+uvicorn>=0.24.0
+pydantic>=2.5.0
+passlib>=1.7.4
+python-jose>=3.3.0
+bcrypt>=4.1.0
+schedule>=1.2.0
+smtplib-ssl>=1.0.0
+python-multipart>=0.0.6
+
+# For export/import functionality
+pandas>=2.1.0
+reportlab>=4.0.0
+
+# For web interface
+jinja2>=3.1.0
+python-multipart>=0.0.6
+
+# For notifications
+requests>=2.31.0
+
+# For fuzzy search
+fuzzywuzzy>=0.18.0
+python-levenshtein>=0.21.0
 
 # Development dependencies (install with: pip install -r requirements-dev.txt)
 # pytest>=7.0.0

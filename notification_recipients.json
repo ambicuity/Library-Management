@@ -1,0 +1,8 @@
+{
+  "demo_user": {
+    "name": "demo_user",
+    "email": "demo@example.com",
+    "phone": null,
+    "preferred_method": "email"
+  }
+}
