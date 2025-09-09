@@ -1,0 +1,11 @@
+{
+  "admin": {
+    "username": "admin",
+    "email": "admin@library.local",
+    "role": "admin",
+    "password_hash": "1bb7049a9f3d566e8c7b42fdabf66cb6981814e81e1873d35337e96c40deeda0:8eff54b85ec6237e0faf34b3d38181ca22d12c6de6780acd42d41f904b46d88b",
+    "is_active": true,
+    "created_at": "2025-09-09T16:11:36.268858",
+    "last_login": null
+  }
+}
