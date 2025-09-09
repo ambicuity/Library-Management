@@ -1,0 +1,9 @@
+{
+  "created_at": "2025-09-09T16:59:34.285212",
+  "files": [
+    "/tmp/tmpmw7bbl5z/test_books.txt",
+    "/tmp/tmpmw7bbl5z/test_members.txt",
+    "/tmp/tmpmw7bbl5z/test_ledger.txt"
+  ],
+  "backup_name": "test_backup"
+}

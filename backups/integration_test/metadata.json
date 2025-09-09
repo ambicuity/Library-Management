@@ -1,0 +1,9 @@
+{
+  "created_at": "2025-09-09T16:59:34.985496",
+  "files": [
+    "/tmp/tmp5s8bii2k/books.txt",
+    "/tmp/tmp5s8bii2k/members.txt",
+    "/tmp/tmp5s8bii2k/ledger.txt"
+  ],
+  "backup_name": "integration_test"
+}

@@ -296,7 +296,7 @@ class Library:
             search_type: Type of search - "title", "author", or "both"
         """
         results = self.search_books(query, search_type)
-        
+
         if not results:
             print(f"No books found matching '{query}' in {search_type}.")
             return
@@ -328,7 +328,9 @@ class Library:
                         due_date = date.fromisoformat(checked_out_book.due_date)
                         if today > due_date:
                             days_overdue = (today - due_date).days
-                            overdue_books.append((member.name, book_title, days_overdue))
+                            overdue_books.append(
+                                (member.name, book_title, days_overdue)
+                            )
                     except ValueError:
                         # Skip if due date is malformed
                         continue
@@ -338,7 +340,7 @@ class Library:
     def display_overdue_books(self) -> None:
         """Display all overdue books."""
         overdue_books = self.get_overdue_books()
-        
+
         if not overdue_books:
             print("No overdue books found.")
             return
@@ -379,7 +381,7 @@ class Library:
             category: The category to display books for
         """
         books = self.get_books_by_category(category)
-        
+
         if not books:
             print(f"No books found in category '{category}'.")
             return
@@ -408,7 +410,7 @@ class Library:
     def display_categories(self) -> None:
         """Display all available book categories."""
         categories = self.get_all_categories()
-        
+
         if not categories:
             print("No categories available.")
             return
@@ -419,10 +421,10 @@ class Library:
             book_count = len(self.get_books_by_category(category))
             print(f"{i}. {category} ({book_count} books)")
         print("-" * 25)
-    
+
     def get_library_stats(self) -> Dict[str, Any]:
         """Get comprehensive library statistics.
-        
+
         Returns:
             Dictionary with library statistics
         """
@@ -430,14 +432,14 @@ class Library:
         available_books = len([book for book in self.books if book.due_date is None])
         issued_books = total_books - available_books
         total_members = len(self.members)
-        
+
         # Count overdue books
         overdue_books_list = self.get_overdue_books()
         overdue_books = len(overdue_books_list)
-        
+
         # Count categories
         categories = len(self.get_all_categories())
-        
+
         return {
             "total_books": total_books,
             "available_books": available_books,

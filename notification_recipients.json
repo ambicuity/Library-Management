@@ -4,5 +4,17 @@
     "email": "demo@example.com",
     "phone": null,
     "preferred_method": "email"
+  },
+  "testuser": {
+    "name": "testuser",
+    "email": "test@example.com",
+    "phone": "+1234567890",
+    "preferred_method": "email"
+  },
+  "newuser": {
+    "name": "newuser",
+    "email": "newuser@example.com",
+    "phone": null,
+    "preferred_method": "sms"
   }
 }

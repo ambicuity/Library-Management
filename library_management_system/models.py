@@ -5,16 +5,16 @@ from typing import List, Optional, Dict
 
 class CheckedOutBook:
     """Represents a book that is checked out to a member.
-    
+
     Attributes:
         title (str): The title of the book
         author (str): The author of the book
         due_date (str): The due date when the book should be returned
     """
-    
+
     def __init__(self, title: str, author: str, due_date: str) -> None:
         """Initialize a new CheckedOutBook instance.
-        
+
         Args:
             title: The title of the book
             author: The author of the book
@@ -26,11 +26,11 @@ class CheckedOutBook:
             raise ValueError("Book author cannot be empty")
         if not due_date or not due_date.strip():
             raise ValueError("Due date cannot be empty")
-            
+
         self.title = title.strip()
         self.author = author.strip()
         self.due_date = due_date.strip()
-    
+
     def __repr__(self) -> str:
         """Return a string representation of the checked out book."""
         return f"CheckedOutBook(title='{self.title}', author='{self.author}', due_date='{self.due_date}')"
@@ -46,7 +46,13 @@ class Book:
         category (str): The category/genre of the book
     """
 
-    def __init__(self, title: str, author: str, due_date: Optional[str] = None, category: str = "General") -> None:
+    def __init__(
+        self,
+        title: str,
+        author: str,
+        due_date: Optional[str] = None,
+        category: str = "General",
+    ) -> None:
         """Initialize a new Book instance.
 
         Args:
@@ -130,7 +136,7 @@ class Member:
         """
         if title not in self.books:
             self.books.append(title)
-            
+
         if author and due_date:
             self.checked_out_books[title] = CheckedOutBook(title, author, due_date)
 
@@ -153,10 +159,10 @@ class Member:
 
     def get_checked_out_book(self, title: str) -> Optional[CheckedOutBook]:
         """Get the CheckedOutBook object for a specific title.
-        
+
         Args:
             title: The title of the book
-            
+
         Returns:
             CheckedOutBook object if found, None otherwise
         """
