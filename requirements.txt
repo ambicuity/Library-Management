@@ -7,7 +7,6 @@ passlib>=1.7.4
 python-jose>=3.3.0
 bcrypt>=4.1.0
 schedule>=1.2.0
-smtplib-ssl>=1.0.0
 python-multipart>=0.0.6
 
 # For export/import functionality
@@ -16,7 +15,6 @@ reportlab>=4.0.0
 
 # For web interface
 jinja2>=3.1.0
-python-multipart>=0.0.6
 
 # For notifications
 requests>=2.31.0
