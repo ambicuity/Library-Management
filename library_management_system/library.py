@@ -151,7 +151,7 @@ class Library:
         self.books.remove(book)
         due_date = date.today() + timedelta(days=days)
         book.due_date = due_date.isoformat()
-        member.add_book(book.title)
+        member.add_book(book.title, book.author, due_date.isoformat())
 
         # Log the transaction
         try:
@@ -238,6 +238,7 @@ class Library:
         for book in self.books:
             print(f"Title: {book.title}")
             print(f"Author: {book.author}")
+            print(f"Category: {book.category}")
             if book.due_date:
                 print(f"Due Date: {book.due_date}")
             print("-" * 50)
@@ -257,3 +258,164 @@ class Library:
             else:
                 print("No books checked out")
             print("-" * 50)
+
+    def search_books(self, query: str, search_type: str = "title") -> List[Book]:
+        """Search for books by title or author.
+
+        Args:
+            query: The search query string
+            search_type: Type of search - "title", "author", or "both"
+
+        Returns:
+            List of Book objects matching the search criteria
+        """
+        if not query or not query.strip():
+            return []
+
+        query = query.strip().lower()
+        matching_books = []
+
+        for book in self.books:
+            if search_type == "title":
+                if query in book.title.lower():
+                    matching_books.append(book)
+            elif search_type == "author":
+                if query in book.author.lower():
+                    matching_books.append(book)
+            elif search_type == "both":
+                if query in book.title.lower() or query in book.author.lower():
+                    matching_books.append(book)
+
+        return matching_books
+
+    def display_search_results(self, query: str, search_type: str = "title") -> None:
+        """Display search results for books.
+
+        Args:
+            query: The search query string
+            search_type: Type of search - "title", "author", or "both"
+        """
+        results = self.search_books(query, search_type)
+        
+        if not results:
+            print(f"No books found matching '{query}' in {search_type}.")
+            return
+
+        print(f"\nSearch Results for '{query}' (searching by {search_type}):")
+        print("-" * 60)
+        for book in results:
+            print(f"Title: {book.title}")
+            print(f"Author: {book.author}")
+            print(f"Category: {book.category}")
+            if book.due_date:
+                print(f"Due Date: {book.due_date}")
+            print("-" * 60)
+
+    def get_overdue_books(self) -> List[tuple]:
+        """Get all overdue books across all members.
+
+        Returns:
+            List of tuples (member_name, book_title, days_overdue)
+        """
+        overdue_books = []
+        today = date.today()
+
+        for member in self.members:
+            for book_title in member.books:
+                checked_out_book = member.get_checked_out_book(book_title)
+                if checked_out_book:
+                    try:
+                        due_date = date.fromisoformat(checked_out_book.due_date)
+                        if today > due_date:
+                            days_overdue = (today - due_date).days
+                            overdue_books.append((member.name, book_title, days_overdue))
+                    except ValueError:
+                        # Skip if due date is malformed
+                        continue
+
+        return overdue_books
+
+    def display_overdue_books(self) -> None:
+        """Display all overdue books."""
+        overdue_books = self.get_overdue_books()
+        
+        if not overdue_books:
+            print("No overdue books found.")
+            return
+
+        print("\nOverdue Books:")
+        print("-" * 70)
+        for member_name, book_title, days_overdue in overdue_books:
+            print(f"Member: {member_name}")
+            print(f"Book: {book_title}")
+            print(f"Days Overdue: {days_overdue}")
+            print("-" * 70)
+
+    def get_books_by_category(self, category: str) -> List[Book]:
+        """Get all books in a specific category.
+
+        Args:
+            category: The category to search for
+
+        Returns:
+            List of Book objects in the specified category
+        """
+        if not category or not category.strip():
+            return []
+
+        category = category.strip().lower()
+        matching_books = []
+
+        for book in self.books:
+            if book.category.lower() == category:
+                matching_books.append(book)
+
+        return matching_books
+
+    def display_books_by_category(self, category: str) -> None:
+        """Display all books in a specific category.
+
+        Args:
+            category: The category to display books for
+        """
+        books = self.get_books_by_category(category)
+        
+        if not books:
+            print(f"No books found in category '{category}'.")
+            return
+
+        print(f"\nBooks in '{category}' category:")
+        print("-" * 60)
+        for book in books:
+            print(f"Title: {book.title}")
+            print(f"Author: {book.author}")
+            print(f"Category: {book.category}")
+            if book.due_date:
+                print(f"Due Date: {book.due_date}")
+            print("-" * 60)
+
+    def get_all_categories(self) -> List[str]:
+        """Get all unique categories from available books.
+
+        Returns:
+            List of unique category names
+        """
+        categories = set()
+        for book in self.books:
+            categories.add(book.category)
+        return sorted(list(categories))
+
+    def display_categories(self) -> None:
+        """Display all available book categories."""
+        categories = self.get_all_categories()
+        
+        if not categories:
+            print("No categories available.")
+            return
+
+        print("\nAvailable Categories:")
+        print("-" * 25)
+        for i, category in enumerate(categories, 1):
+            book_count = len(self.get_books_by_category(category))
+            print(f"{i}. {category} ({book_count} books)")
+        print("-" * 25)

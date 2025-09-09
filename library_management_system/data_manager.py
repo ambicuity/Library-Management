@@ -5,7 +5,7 @@ import os
 from typing import List
 from datetime import datetime
 
-from .models import Book, Member
+from .models import Book, Member, CheckedOutBook
 
 
 class DataManager:
@@ -54,6 +54,7 @@ class DataManager:
                             title=book_dict["title"],
                             author=book_dict["author"],
                             due_date=book_dict.get("due_date"),
+                            category=book_dict.get("category", "General"),
                         )
                     )
                 return books
@@ -97,11 +98,23 @@ class DataManager:
                         continue
                     if "name" not in member_dict:
                         continue
-                    members.append(
-                        Member(
-                            name=member_dict["name"], books=member_dict.get("books", [])
-                        )
+                    
+                    member = Member(
+                        name=member_dict["name"], 
+                        books=member_dict.get("books", [])
                     )
+                    
+                    # Load checked out books if they exist
+                    if "checked_out_books" in member_dict:
+                        for title, book_data in member_dict["checked_out_books"].items():
+                            if isinstance(book_data, dict) and all(k in book_data for k in ["title", "author", "due_date"]):
+                                member.checked_out_books[title] = CheckedOutBook(
+                                    title=book_data["title"],
+                                    author=book_data["author"],
+                                    due_date=book_data["due_date"]
+                                )
+                    
+                    members.append(member)
                 return members
         except (json.JSONDecodeError, FileNotFoundError) as e:
             raise ValueError(f"Error loading members data: {e}")
@@ -116,7 +129,22 @@ class DataManager:
             IOError: If the file cannot be written
         """
         try:
-            members_data = [member.__dict__ for member in members]
+            members_data = []
+            for member in members:
+                member_dict = {
+                    "name": member.name,
+                    "books": member.books,
+                    "checked_out_books": {}
+                }
+                # Convert CheckedOutBook objects to dictionaries
+                for title, checked_out_book in member.checked_out_books.items():
+                    member_dict["checked_out_books"][title] = {
+                        "title": checked_out_book.title,
+                        "author": checked_out_book.author,
+                        "due_date": checked_out_book.due_date
+                    }
+                members_data.append(member_dict)
+                
             with open(self.members_file, "w", encoding="utf-8") as f:
                 json.dump(members_data, f, indent=2)
         except IOError as e:
