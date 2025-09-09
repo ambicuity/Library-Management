@@ -1,7 +1,6 @@
 """Internationalization (i18n) support for the Library Management System."""
 
 import json
-import os
 from typing import Dict, Optional, Any, List
 from pathlib import Path
 from datetime import datetime
@@ -10,10 +9,12 @@ import locale
 
 class I18n:
     """Internationalization manager."""
-    
-    def __init__(self, default_language: str = "en", translations_dir: str = "translations"):
+
+    def __init__(
+        self, default_language: str = "en", translations_dir: str = "translations"
+    ):
         """Initialize i18n manager.
-        
+
         Args:
             default_language: Default language code
             translations_dir: Directory containing translation files
@@ -22,27 +23,27 @@ class I18n:
         self.current_language = default_language
         self.translations_dir = Path(translations_dir)
         self.translations: Dict[str, Dict[str, Any]] = {}
-        
+
         # Create translations directory if it doesn't exist
         self.translations_dir.mkdir(exist_ok=True)
-        
+
         # Load all available translations
         self._load_translations()
-        
+
         # Create default translations if none exist
         if not self.translations:
             self._create_default_translations()
-    
+
     def _load_translations(self) -> None:
         """Load all translation files."""
         for file_path in self.translations_dir.glob("*.json"):
             language_code = file_path.stem
             try:
-                with open(file_path, 'r', encoding='utf-8') as f:
+                with open(file_path, "r", encoding="utf-8") as f:
                     self.translations[language_code] = json.load(f)
             except (json.JSONDecodeError, FileNotFoundError) as e:
                 print(f"Warning: Could not load translations for {language_code}: {e}")
-    
+
     def _create_default_translations(self) -> None:
         """Create default English translations."""
         default_translations = {
@@ -86,7 +87,6 @@ class I18n:
             "confirm": "Confirm",
             "required": "Required",
             "optional": "Optional",
-            
             # Menu items
             "menu_add_book": "Add book",
             "menu_add_member": "Add member",
@@ -99,7 +99,6 @@ class I18n:
             "menu_view_overdue": "View overdue books",
             "menu_browse_category": "Browse by category",
             "menu_exit": "Exit",
-            
             # Book management
             "book": "Book",
             "books": "Books",
@@ -130,7 +129,6 @@ class I18n:
             "due_date": "Due Date",
             "issue_date": "Issue Date",
             "return_date": "Return Date",
-            
             # Member management
             "member": "Member",
             "members": "Members",
@@ -150,7 +148,6 @@ class I18n:
             "enter_member_name": "Enter member name",
             "books_checked_out": "Books checked out",
             "no_books_checked_out": "No books checked out",
-            
             # Search and filtering
             "search_by_title": "Search by title",
             "search_by_author": "Search by author",
@@ -165,7 +162,6 @@ class I18n:
             "sort_by_date": "Sort by date",
             "autocomplete_suggestions": "Suggestions",
             "fuzzy_search": "Did you mean",
-            
             # Overdue books
             "overdue_books": "Overdue Books",
             "days_overdue": "Days Overdue",
@@ -173,7 +169,6 @@ class I18n:
             "overdue_notice": "Overdue Notice",
             "book_overdue": "This book is overdue",
             "return_immediately": "Please return immediately",
-            
             # Categories
             "categories": "Categories",
             "all_categories": "All Categories",
@@ -218,7 +213,6 @@ class I18n:
             "biology": "Biology",
             "computer_science": "Computer Science",
             "general": "General",
-            
             # Statistics and reports
             "statistics": "Statistics",
             "reports": "Reports",
@@ -230,7 +224,6 @@ class I18n:
             "popular_books": "Popular Books",
             "active_members": "Active Members",
             "library_stats": "Library Statistics",
-            
             # User interface
             "dashboard": "Dashboard",
             "navigation": "Navigation",
@@ -247,7 +240,6 @@ class I18n:
             "next": "Next",
             "first": "First",
             "last": "Last",
-            
             # Forms and validation
             "form_validation_error": "Please correct the following errors:",
             "field_required": "This field is required",
@@ -259,7 +251,6 @@ class I18n:
             "invalid_format": "Invalid format",
             "value_too_long": "Value is too long",
             "value_too_short": "Value is too short",
-            
             # Notifications
             "notification": "Notification",
             "notifications": "Notifications",
@@ -271,7 +262,6 @@ class I18n:
             "overdue_notice": "Overdue Notice",
             "book_available": "Book Available",
             "system_alert": "System Alert",
-            
             # Settings
             "language": "Language",
             "theme": "Theme",
@@ -284,7 +274,6 @@ class I18n:
             "push_notifications": "Push Notifications",
             "reminder_settings": "Reminder Settings",
             "days_before_due": "Days before due date",
-            
             # Authentication and authorization
             "login_required": "Login required",
             "access_denied": "Access denied",
@@ -303,7 +292,6 @@ class I18n:
             "admin": "Administrator",
             "librarian": "Librarian",
             "user": "User",
-            
             # Error messages
             "error_occurred": "An error occurred",
             "connection_error": "Connection error",
@@ -319,7 +307,6 @@ class I18n:
             "database_error": "Database error",
             "file_not_found": "File not found",
             "permission_denied": "Permission denied",
-            
             # Date and time
             "today": "Today",
             "yesterday": "Yesterday",
@@ -352,7 +339,6 @@ class I18n:
             "friday": "Friday",
             "saturday": "Saturday",
             "sunday": "Sunday",
-            
             # File operations
             "file": "File",
             "files": "Files",
@@ -373,7 +359,6 @@ class I18n:
             "json_format": "JSON Format",
             "pdf_format": "PDF Format",
             "excel_format": "Excel Format",
-            
             # API and integration
             "api": "API",
             "api_key": "API Key",
@@ -388,7 +373,6 @@ class I18n:
             "sync_now": "Sync now",
             "auto_sync": "Auto sync",
             "manual_sync": "Manual sync",
-            
             # Backup and restore
             "backup_created": "Backup created successfully",
             "backup_failed": "Backup failed",
@@ -402,7 +386,6 @@ class I18n:
             "daily": "Daily",
             "weekly": "Weekly",
             "monthly": "Monthly",
-            
             # Performance and monitoring
             "performance": "Performance",
             "monitoring": "Monitoring",
@@ -422,11 +405,11 @@ class I18n:
             "warning": "Warning",
             "critical": "Critical",
         }
-        
+
         # Save default translations
         self.translations[self.default_language] = default_translations
         self._save_translations(self.default_language)
-        
+
         # Create Spanish translations as an example
         spanish_translations = {
             "welcome": "¡Bienvenido al Sistema de Gestión de Biblioteca!",
@@ -468,7 +451,6 @@ class I18n:
             "confirm": "Confirmar",
             "required": "Requerido",
             "optional": "Opcional",
-            
             # Menu items
             "menu_add_book": "Agregar libro",
             "menu_add_member": "Agregar miembro",
@@ -481,7 +463,6 @@ class I18n:
             "menu_view_overdue": "Ver libros vencidos",
             "menu_browse_category": "Navegar por categoría",
             "menu_exit": "Salir",
-            
             # Book management
             "book": "Libro",
             "books": "Libros",
@@ -512,7 +493,6 @@ class I18n:
             "due_date": "Fecha de vencimiento",
             "issue_date": "Fecha de préstamo",
             "return_date": "Fecha de devolución",
-            
             # Member management
             "member": "Miembro",
             "members": "Miembros",
@@ -532,7 +512,6 @@ class I18n:
             "enter_member_name": "Ingrese el nombre del miembro",
             "books_checked_out": "Libros prestados",
             "no_books_checked_out": "No hay libros prestados",
-            
             # Language
             "language": "Idioma",
             "english": "Inglés",
@@ -548,27 +527,29 @@ class I18n:
             "russian": "Ruso",
             "hindi": "Hindi",
         }
-        
+
         self.translations["es"] = spanish_translations
         self._save_translations("es")
-    
+
     def _save_translations(self, language_code: str) -> None:
         """Save translations to file.
-        
+
         Args:
             language_code: Language code to save
         """
         if language_code in self.translations:
             file_path = self.translations_dir / f"{language_code}.json"
-            with open(file_path, 'w', encoding='utf-8') as f:
-                json.dump(self.translations[language_code], f, ensure_ascii=False, indent=2)
-    
+            with open(file_path, "w", encoding="utf-8") as f:
+                json.dump(
+                    self.translations[language_code], f, ensure_ascii=False, indent=2
+                )
+
     def set_language(self, language_code: str) -> bool:
         """Set the current language.
-        
+
         Args:
             language_code: Language code to set
-            
+
         Returns:
             True if language was set successfully, False otherwise
         """
@@ -576,28 +557,28 @@ class I18n:
             self.current_language = language_code
             return True
         return False
-    
+
     def get_available_languages(self) -> List[str]:
         """Get list of available languages.
-        
+
         Returns:
             List of available language codes
         """
         return list(self.translations.keys())
-    
+
     def translate(self, key: str, language: Optional[str] = None, **kwargs) -> str:
         """Translate a key to the specified language.
-        
+
         Args:
             key: Translation key
             language: Language code (uses current language if None)
             **kwargs: Variables to substitute in the translation
-            
+
         Returns:
             Translated string
         """
         language = language or self.current_language
-        
+
         # Try to get translation from specified language
         if language in self.translations and key in self.translations[language]:
             translation = self.translations[language][key]
@@ -607,7 +588,7 @@ class I18n:
         # Fall back to the key itself
         else:
             translation = key
-        
+
         # Substitute variables
         if kwargs:
             try:
@@ -615,24 +596,24 @@ class I18n:
             except (KeyError, ValueError):
                 # If substitution fails, return the original translation
                 pass
-        
+
         return translation
-    
+
     def t(self, key: str, **kwargs) -> str:
         """Shorthand for translate.
-        
+
         Args:
             key: Translation key
             **kwargs: Variables to substitute
-            
+
         Returns:
             Translated string
         """
         return self.translate(key, **kwargs)
-    
+
     def add_translation(self, language_code: str, key: str, value: str) -> None:
         """Add a new translation.
-        
+
         Args:
             language_code: Language code
             key: Translation key
@@ -640,29 +621,31 @@ class I18n:
         """
         if language_code not in self.translations:
             self.translations[language_code] = {}
-        
+
         self.translations[language_code][key] = value
         self._save_translations(language_code)
-    
-    def add_translations(self, language_code: str, translations: Dict[str, str]) -> None:
+
+    def add_translations(
+        self, language_code: str, translations: Dict[str, str]
+    ) -> None:
         """Add multiple translations.
-        
+
         Args:
             language_code: Language code
             translations: Dictionary of translations
         """
         if language_code not in self.translations:
             self.translations[language_code] = {}
-        
+
         self.translations[language_code].update(translations)
         self._save_translations(language_code)
-    
+
     def get_language_info(self, language_code: str) -> Dict[str, str]:
         """Get information about a language.
-        
+
         Args:
             language_code: Language code
-            
+
         Returns:
             Dictionary with language information
         """
@@ -680,16 +663,18 @@ class I18n:
             "ru": {"name": "Russian", "native_name": "Русский"},
             "hi": {"name": "Hindi", "native_name": "हिन्दी"},
         }
-        
-        return language_names.get(language_code, {"name": language_code, "native_name": language_code})
-    
+
+        return language_names.get(
+            language_code, {"name": language_code, "native_name": language_code}
+        )
+
     def format_date(self, date_obj: datetime, format_type: str = "short") -> str:
         """Format a date according to the current language/locale.
-        
+
         Args:
             date_obj: Date object to format
             format_type: Format type (short, long, medium)
-            
+
         Returns:
             Formatted date string
         """
@@ -702,14 +687,14 @@ class I18n:
             "it": "it_IT.UTF-8",
             "pt": "pt_PT.UTF-8",
         }
-        
+
         try:
             if self.current_language in locale_mappings:
                 locale.setlocale(locale.LC_TIME, locale_mappings[self.current_language])
         except locale.Error:
             # If locale is not available, use default
             pass
-        
+
         # Format based on type
         if format_type == "short":
             return date_obj.strftime("%m/%d/%Y")
@@ -721,14 +706,14 @@ class I18n:
             return date_obj.strftime("%A, %B %d, %Y")
         else:
             return date_obj.strftime("%Y-%m-%d")
-    
+
     def format_number(self, number: float, format_type: str = "decimal") -> str:
         """Format a number according to the current language/locale.
-        
+
         Args:
             number: Number to format
             format_type: Format type (decimal, currency, percent)
-            
+
         Returns:
             Formatted number string
         """
@@ -741,10 +726,12 @@ class I18n:
             "it": "it_IT.UTF-8",
             "pt": "pt_PT.UTF-8",
         }
-        
+
         try:
             if self.current_language in locale_mappings:
-                locale.setlocale(locale.LC_NUMERIC, locale_mappings[self.current_language])
+                locale.setlocale(
+                    locale.LC_NUMERIC, locale_mappings[self.current_language]
+                )
         except locale.Error:
             # If locale is not available, use default formatting
             if format_type == "currency":
@@ -753,7 +740,7 @@ class I18n:
                 return f"{number:.1f}%"
             else:
                 return f"{number:,.2f}"
-        
+
         # Use locale-specific formatting
         if format_type == "currency":
             return locale.currency(number)
@@ -761,15 +748,15 @@ class I18n:
             return locale.format_string("%.1f%%", number)
         else:
             return locale.format_string("%.2f", number, grouping=True)
-    
+
     def pluralize(self, key: str, count: int, **kwargs) -> str:
         """Get the appropriate plural form of a translation.
-        
+
         Args:
             key: Base translation key
             count: Count to determine plural form
             **kwargs: Additional variables for substitution
-            
+
         Returns:
             Pluralized translation
         """
@@ -779,70 +766,75 @@ class I18n:
         else:
             # Try to find plural form
             plural_key = f"{key}_plural"
-            if self.current_language in self.translations and plural_key in self.translations[self.current_language]:
+            if (
+                self.current_language in self.translations
+                and plural_key in self.translations[self.current_language]
+            ):
                 return self.translate(plural_key, count=count, **kwargs)
             else:
                 # Use singular form with count
                 return self.translate(key, count=count, **kwargs)
-    
+
     def get_translation_completeness(self, language_code: str) -> float:
         """Get the translation completeness percentage for a language.
-        
+
         Args:
             language_code: Language code to check
-            
+
         Returns:
             Percentage of translations completed (0.0 to 100.0)
         """
         if language_code not in self.translations:
             return 0.0
-        
+
         default_keys = set(self.translations.get(self.default_language, {}).keys())
         language_keys = set(self.translations[language_code].keys())
-        
+
         if not default_keys:
             return 100.0
-        
+
         completeness = len(language_keys.intersection(default_keys)) / len(default_keys)
         return completeness * 100.0
-    
+
     def export_translations(self, language_code: str, file_path: str) -> bool:
         """Export translations to a file.
-        
+
         Args:
             language_code: Language code to export
             file_path: Output file path
-            
+
         Returns:
             True if export was successful, False otherwise
         """
         if language_code not in self.translations:
             return False
-        
+
         try:
-            with open(file_path, 'w', encoding='utf-8') as f:
-                json.dump(self.translations[language_code], f, ensure_ascii=False, indent=2)
+            with open(file_path, "w", encoding="utf-8") as f:
+                json.dump(
+                    self.translations[language_code], f, ensure_ascii=False, indent=2
+                )
             return True
         except (IOError, OSError):
             return False
-    
+
     def import_translations(self, language_code: str, file_path: str) -> bool:
         """Import translations from a file.
-        
+
         Args:
             language_code: Language code to import
             file_path: Input file path
-            
+
         Returns:
             True if import was successful, False otherwise
         """
         try:
-            with open(file_path, 'r', encoding='utf-8') as f:
+            with open(file_path, "r", encoding="utf-8") as f:
                 translations = json.load(f)
-            
+
             if not isinstance(translations, dict):
                 return False
-            
+
             self.translations[language_code] = translations
             self._save_translations(language_code)
             return True
@@ -856,7 +848,7 @@ _i18n = None
 
 def get_i18n() -> I18n:
     """Get the global i18n instance.
-    
+
     Returns:
         Global I18n instance
     """
@@ -866,13 +858,15 @@ def get_i18n() -> I18n:
     return _i18n
 
 
-def init_i18n(default_language: str = "en", translations_dir: str = "translations") -> I18n:
+def init_i18n(
+    default_language: str = "en", translations_dir: str = "translations"
+) -> I18n:
     """Initialize the global i18n instance.
-    
+
     Args:
         default_language: Default language code
         translations_dir: Directory containing translation files
-        
+
     Returns:
         Initialized I18n instance
     """
@@ -883,11 +877,11 @@ def init_i18n(default_language: str = "en", translations_dir: str = "translation
 
 def t(key: str, **kwargs) -> str:
     """Global translation function.
-    
+
     Args:
         key: Translation key
         **kwargs: Variables to substitute
-        
+
     Returns:
         Translated string
     """
@@ -896,10 +890,10 @@ def t(key: str, **kwargs) -> str:
 
 def set_language(language_code: str) -> bool:
     """Set the global language.
-    
+
     Args:
         language_code: Language code to set
-        
+
     Returns:
         True if language was set successfully, False otherwise
     """

@@ -9,7 +9,12 @@ from .models import Book, Member
 class CLI:
     """Command-line interface for the library management system."""
 
-    def __init__(self, library: Optional[Library] = None, auth_manager=None, monitoring_system=None) -> None:
+    def __init__(
+        self,
+        library: Optional[Library] = None,
+        auth_manager=None,
+        monitoring_system=None,
+    ) -> None:
         """Initialize the CLI with a library instance.
 
         Args:
@@ -66,13 +71,17 @@ class CLI:
                 print("Error: Book author cannot be empty.")
                 return
 
-            category = input("Enter book category (or press Enter for 'General'): ").strip()
+            category = input(
+                "Enter book category (or press Enter for 'General'): "
+            ).strip()
             if not category:
                 category = "General"
 
             book = Book(title, author, category=category)
             self.library.add_book(book)
-            print(f"Book '{title}' by {author} (Category: {category}) added successfully.")
+            print(
+                f"Book '{title}' by {author} (Category: {category}) added successfully."
+            )
 
         except ValueError as e:
             print(f"Error: {e}")
@@ -179,7 +188,7 @@ class CLI:
             print("1. Search by title")
             print("2. Search by author")
             print("3. Search both title and author")
-            
+
             while True:
                 try:
                     search_choice = int(input("Choose search type (1-3): "))
@@ -189,17 +198,17 @@ class CLI:
                         print("Invalid choice. Please enter 1, 2, or 3.")
                 except ValueError:
                     print("Invalid input. Please enter a number.")
-            
+
             query = input("Enter search term: ").strip()
             if not query:
                 print("Error: Search term cannot be empty.")
                 return
-            
+
             search_types = {1: "title", 2: "author", 3: "both"}
             search_type = search_types[search_choice]
-            
+
             self.library.display_search_results(query, search_type)
-            
+
         except Exception as e:
             print(f"Unexpected error: {e}")
 
@@ -216,7 +225,7 @@ class CLI:
             print("\nCategory Options:")
             print("1. View all categories")
             print("2. Browse books in a specific category")
-            
+
             while True:
                 try:
                     choice = int(input("Choose option (1-2): "))
@@ -226,7 +235,7 @@ class CLI:
                         print("Invalid choice. Please enter 1 or 2.")
                 except ValueError:
                     print("Invalid input. Please enter a number.")
-            
+
             if choice == 1:
                 self.library.display_categories()
             else:
@@ -235,7 +244,7 @@ class CLI:
                     print("Error: Category name cannot be empty.")
                     return
                 self.library.display_books_by_category(category)
-                
+
         except Exception as e:
             print(f"Unexpected error: {e}")
 
