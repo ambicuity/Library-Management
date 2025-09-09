@@ -1,9 +1,13 @@
 """Command-line interface for the Library Management System."""
 
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 
 from .library import Library, BookNotFoundError, MemberNotFoundError
 from .models import Book, Member
+
+if TYPE_CHECKING:
+    from .auth import AuthManager
+    from .monitoring import MonitoringSystem
 
 
 class CLI:
@@ -12,8 +16,8 @@ class CLI:
     def __init__(
         self,
         library: Optional[Library] = None,
-        auth_manager=None,
-        monitoring_system=None,
+        auth_manager: Optional["AuthManager"] = None,
+        monitoring_system: Optional["MonitoringSystem"] = None,
     ) -> None:
         """Initialize the CLI with a library instance.
 

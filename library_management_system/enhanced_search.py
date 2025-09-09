@@ -17,7 +17,7 @@ from .models import Book, Member
 class SearchIndex:
     """Search index for fast book and member lookups."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize the search index."""
         self.title_index: Dict[str, List[Book]] = defaultdict(list)
         self.author_index: Dict[str, List[Book]] = defaultdict(list)
@@ -145,7 +145,7 @@ class SearchIndex:
 class EnhancedSearch:
     """Enhanced search functionality with autocomplete and fuzzy matching."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize the enhanced search system."""
         self.index = SearchIndex()
         self.fuzzy_threshold = 80  # Minimum fuzzy match score
@@ -280,7 +280,7 @@ class EnhancedSearch:
             List of (title, score) tuples
         """
         query_trigrams = set(self.index._generate_trigrams(query))
-        title_scores = defaultdict(int)
+        title_scores: Dict[str, int] = defaultdict(int)
 
         for trigram in query_trigrams:
             for title in self.index.title_trigrams.get(trigram, []):
@@ -314,7 +314,7 @@ class EnhancedSearch:
             List of (author, score) tuples
         """
         query_trigrams = set(self.index._generate_trigrams(query))
-        author_scores = defaultdict(int)
+        author_scores: Dict[str, int] = defaultdict(int)
 
         for trigram in query_trigrams:
             for author in self.index.author_trigrams.get(trigram, []):
@@ -510,7 +510,7 @@ class SearchSuggestionEngine:
         Returns:
             Dictionary with different types of suggestions
         """
-        suggestions = {
+        suggestions: Dict[str, List[str]] = {
             "autocomplete": [],
             "fuzzy_matches": [],
             "popular_queries": [],
