@@ -600,13 +600,17 @@ class TestIntegration:
             enable_backups=True
         )
         
-        # Create test admin user
-        self.admin_user = self.auth_manager.create_user(
-            username="admin",
-            email="admin@library.local",
-            password="admin123",
-            role=Role.ADMIN
-        )
+        # Create test admin user (or get existing one)
+        existing_admin = self.auth_manager.get_user("admin")
+        if existing_admin:
+            self.admin_user = existing_admin
+        else:
+            self.admin_user = self.auth_manager.create_user(
+                username="admin",
+                email="admin@library.local",
+                password="admin123",
+                role=Role.ADMIN
+            )
     
     def teardown_method(self):
         """Clean up test fixtures."""

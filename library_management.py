@@ -47,7 +47,7 @@ from library_management_system.cli import CLI
 from library_management_system.library import Library
 from library_management_system.secure_data_manager import SecureDataManager
 from library_management_system.auth import AuthManager, Role
-from library_management_system.monitoring import MonitoringSystem
+from library_management_system.monitoring import MonitoringSystem, LogLevel
 from library_management_system.i18n import init_i18n
 
 
@@ -320,7 +320,7 @@ Examples:
             monitoring_system.record_system_event(
                 "system_error",
                 f"Fatal error occurred: {e}",
-                level="ERROR"
+                level=LogLevel.ERROR
             )
             monitoring_system.shutdown()
         

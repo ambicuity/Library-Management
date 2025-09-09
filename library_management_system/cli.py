@@ -9,13 +9,17 @@ from .models import Book, Member
 class CLI:
     """Command-line interface for the library management system."""
 
-    def __init__(self, library: Optional[Library] = None) -> None:
+    def __init__(self, library: Optional[Library] = None, auth_manager=None, monitoring_system=None) -> None:
         """Initialize the CLI with a library instance.
 
         Args:
             library: Optional Library instance. If None, creates a default one.
+            auth_manager: Optional authentication manager instance.
+            monitoring_system: Optional monitoring system instance.
         """
         self.library = library or Library()
+        self.auth_manager = auth_manager
+        self.monitoring_system = monitoring_system
 
     def display_menu(self) -> None:
         """Display the main menu options."""
