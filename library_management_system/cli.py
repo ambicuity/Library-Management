@@ -5,9 +5,6 @@ from typing import Optional, TYPE_CHECKING
 from .library import Library, BookNotFoundError, MemberNotFoundError
 from .models import Book, Member
 
-if TYPE_CHECKING:
-    from .auth import AuthManager
-    from .monitoring import MonitoringSystem
 
 
 class CLI:
