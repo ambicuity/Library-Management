@@ -1,0 +1,8 @@
+[
+  {
+    "title": "Test Book",
+    "author": "Test Author",
+    "due_date": null,
+    "category": "General"
+  }
+]
