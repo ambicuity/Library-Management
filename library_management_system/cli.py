@@ -27,7 +27,10 @@ class CLI:
         print("5. Display all books")
         print("6. Display all members")
         print("7. View member's books")
-        print("8. Exit")
+        print("8. Search books")
+        print("9. View overdue books")
+        print("10. Browse by category")
+        print("11. Exit")
         print("=" * 34)
 
     def get_choice(self) -> int:
@@ -38,11 +41,11 @@ class CLI:
         """
         while True:
             try:
-                choice = int(input("Enter your choice (1-8): "))
-                if 1 <= choice <= 8:
+                choice = int(input("Enter your choice (1-11): "))
+                if 1 <= choice <= 11:
                     return choice
                 else:
-                    print("Invalid choice. Please enter a number between 1 and 8.")
+                    print("Invalid choice. Please enter a number between 1 and 11.")
             except ValueError:
                 print("Invalid input. Please enter a number.")
 
@@ -59,9 +62,13 @@ class CLI:
                 print("Error: Book author cannot be empty.")
                 return
 
-            book = Book(title, author)
+            category = input("Enter book category (or press Enter for 'General'): ").strip()
+            if not category:
+                category = "General"
+
+            book = Book(title, author, category=category)
             self.library.add_book(book)
-            print(f"Book '{title}' by {author} added successfully.")
+            print(f"Book '{title}' by {author} (Category: {category}) added successfully.")
 
         except ValueError as e:
             print(f"Error: {e}")
@@ -161,6 +168,73 @@ class CLI:
         except Exception as e:
             print(f"Unexpected error: {e}")
 
+    def search_books(self) -> None:
+        """Handle searching for books."""
+        try:
+            print("\nSearch Options:")
+            print("1. Search by title")
+            print("2. Search by author")
+            print("3. Search both title and author")
+            
+            while True:
+                try:
+                    search_choice = int(input("Choose search type (1-3): "))
+                    if 1 <= search_choice <= 3:
+                        break
+                    else:
+                        print("Invalid choice. Please enter 1, 2, or 3.")
+                except ValueError:
+                    print("Invalid input. Please enter a number.")
+            
+            query = input("Enter search term: ").strip()
+            if not query:
+                print("Error: Search term cannot be empty.")
+                return
+            
+            search_types = {1: "title", 2: "author", 3: "both"}
+            search_type = search_types[search_choice]
+            
+            self.library.display_search_results(query, search_type)
+            
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+
+    def view_overdue_books(self) -> None:
+        """Display all overdue books."""
+        try:
+            self.library.display_overdue_books()
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+
+    def browse_by_category(self) -> None:
+        """Handle browsing books by category."""
+        try:
+            print("\nCategory Options:")
+            print("1. View all categories")
+            print("2. Browse books in a specific category")
+            
+            while True:
+                try:
+                    choice = int(input("Choose option (1-2): "))
+                    if choice in [1, 2]:
+                        break
+                    else:
+                        print("Invalid choice. Please enter 1 or 2.")
+                except ValueError:
+                    print("Invalid input. Please enter a number.")
+            
+            if choice == 1:
+                self.library.display_categories()
+            else:
+                category = input("Enter category name: ").strip()
+                if not category:
+                    print("Error: Category name cannot be empty.")
+                    return
+                self.library.display_books_by_category(category)
+                
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+
     def run(self) -> None:
         """Run the main CLI loop."""
         print("Welcome to the Library Management System!")
@@ -196,6 +270,12 @@ class CLI:
                 elif choice == 7:
                     self.view_member_books()
                 elif choice == 8:
+                    self.search_books()
+                elif choice == 9:
+                    self.view_overdue_books()
+                elif choice == 10:
+                    self.browse_by_category()
+                elif choice == 11:
                     print("Saving library data...")
                     try:
                         self.library.save_data()

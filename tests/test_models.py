@@ -60,7 +60,7 @@ class TestBook:
     def test_book_repr(self):
         """Test book string representation."""
         book = Book("Title", "Author", "2024-01-01")
-        expected = "Book(title='Title', author='Author', due_date='2024-01-01')"
+        expected = "Book(title='Title', author='Author', due_date='2024-01-01', category='General')"
         assert repr(book) == expected
 
 

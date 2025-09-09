@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System - CLI Interface Demo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .cli-section {
+            background: #f1f2f6;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px;
+        }
+        
+        .cli-section h2 {
+            color: #2c3e50;
+            margin: 0 0 20px 0;
+            font-size: 1.8em;
+            border-bottom: 3px solid #27ae60;
+            padding-bottom: 10px;
+        }
+        
+        .terminal {
+            background: #2c3e50;
+            color: #00ff41;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            line-height: 1.6;
+            border: 3px solid #34495e;
+        }
+        
+        .menu-highlight {
+            color: #f39c12;
+            font-weight: bold;
+        }
+        
+        .success {
+            color: #2ecc71;
+        }
+        
+        .info {
+            color: #3498db;
+        }
+        
+        .warning {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🖥️ CLI Interface Demo</h1>
+            <p>Enhanced Library Management System Command Line Interface</p>
+        </div>
+        
+        <div class="cli-section">
+            <h2>💻 Enhanced CLI Menu (11 Options)</h2>
+            <div class="terminal">
+Welcome to the Library Management System!
+Library data loaded successfully.
+
+<span class="menu-highlight">=== Library Management System ===</span>
+<span class="success">1. Add book</span>
+<span class="success">2. Add member</span>
+<span class="success">3. Issue book</span>
+<span class="success">4. Return book</span>
+<span class="success">5. Display all books</span>
+<span class="success">6. Display all members</span>
+<span class="success">7. View member's books</span>
+<span class="info">8. Search books</span> <span class="warning">[NEW]</span>
+<span class="info">9. View overdue books</span> <span class="warning">[NEW]</span>
+<span class="info">10. Browse by category</span> <span class="warning">[NEW]</span>
+<span class="success">11. Exit</span>
+<span class="menu-highlight">==================================</span>
+Enter your choice (1-11): _
+            </div>
+        </div>
+
+        <div class="cli-section">
+            <h2>🔍 Search Feature Demonstration</h2>
+            <div class="terminal">
+Enter your choice (1-11): 8
+
+<span class="info">Search Options:</span>
+1. Search by title
+2. Search by author
+3. Search both title and author
+Choose search type (1-3): 2
+Enter search term: Tolkien
+
+<span class="success">Search Results for 'Tolkien' (searching by author):</span>
+------------------------------------------------------------
+Title: The Lord of the Rings
+Author: J.R.R. Tolkien
+Category: Fantasy
+------------------------------------------------------------
+Title: The Hobbit
+Author: J.R.R. Tolkien
+Category: Fantasy
+------------------------------------------------------------
+            </div>
+        </div>
+
+        <div class="cli-section">
+            <h2>📂 Category Browsing Feature</h2>
+            <div class="terminal">
+Enter your choice (1-11): 10
+
+<span class="info">Category Options:</span>
+1. View all categories
+2. Browse books in a specific category
+Choose option (1-2): 1
+
+<span class="success">Available Categories:</span>
+-------------------------
+1. Classic Literature (3 books)
+2. Coming of Age (1 books)
+3. Dystopian Fiction (1 books)
+4. Fantasy (3 books)
+5. Gothic Fiction (1 books)
+6. Philosophy (1 books)
+7. Romance (1 books)
+8. Science (1 books)
+9. Science Fiction (2 books)
+-------------------------
+            </div>
+        </div>
+
+        <div class="cli-section">
+            <h2>⏰ Overdue Books Monitoring</h2>
+            <div class="terminal">
+Enter your choice (1-11): 9
+
+<span class="warning">Overdue Books:</span>
+----------------------------------------------------------------------
+Member: Alice Johnson
+Book: The Great Gatsby
+Days Overdue: 3
+----------------------------------------------------------------------
+Member: Bob Smith
+Book: 1984
+Days Overdue: 7
+----------------------------------------------------------------------
+            </div>
+        </div>
+    </div>
+</body>
+</html>
